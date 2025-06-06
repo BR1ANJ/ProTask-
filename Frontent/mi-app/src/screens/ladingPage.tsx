@@ -178,7 +178,7 @@ const LandingPage: React.FC = () => {
           onPress={() => scrollRef.current?.scrollTo({ y: 0, animated: true })}
           accessibilityLabel="Volver arriba"
         >
-          <Text style={{ color: '#fff', fontSize: 18 }}>↑</Text>
+          <Text style={{ color: '#fff', fontSize: 30 }}>↑</Text>
         </TouchableOpacity>
       </Animatable.View>
 
@@ -218,7 +218,7 @@ const LandingPage: React.FC = () => {
               style={styles.menuItem}
               onPress={() => {
                 setMenuVisible(false);
-                navigation.navigate('Login');
+                navigation.navigate('Inicio');
               }}
             >
               <Text style={styles.menuText}>Iniciar</Text>

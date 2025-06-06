@@ -55,11 +55,13 @@ const MesaAyudaForm: React.FC = () => {
       !nombre.trim() ||
       !correo.trim() ||
       !extension.trim() ||
-      !grupo.trim() ||
-      !sucursal.trim() ||
-      !departamento.trim() ||
-      !descripcion.trim() ||
-      !asesor.trim()
+      grupo === 'Elegir' ||
+      sucursal === 'Elegir' ||
+      departamento === 'Elegir' ||
+      incidente === 'Elegir' ||
+      urgencia === 'Elegir' ||
+      asesor === 'Elegir' ||
+      !descripcion.trim()
     ) {
       Alert.alert('Error', 'Por favor completa todos los campos obligatorios (*)');
       return;
@@ -67,6 +69,7 @@ const MesaAyudaForm: React.FC = () => {
 
     Alert.alert('Enviado', 'Tu reporte ha sido recibido correctamente');
 
+    // Reset fields
     setNombre('');
     setCorreo('');
     setExtension('');
@@ -226,19 +229,19 @@ export default MesaAyudaForm;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1e293b', // azul oscuro de fondo
+    backgroundColor: '#1e293b',
     paddingHorizontal: 16,
     paddingTop: 24,
   },
   title: {
     fontSize: 26,
     fontWeight: 'bold',
-    color: '#93c5fd', // azul claro para el título
+    color: '#93c5fd',
     textAlign: 'center',
     marginBottom: 20,
   },
   card: {
-    backgroundColor: '#334155', // gris azulado oscuro
+    backgroundColor: '#334155',
     borderRadius: 16,
     padding: 20,
     shadowColor: '#000',
@@ -248,7 +251,7 @@ const styles = StyleSheet.create({
   },
   section: {
     marginBottom: 24,
-    backgroundColor: '#475569', // gris azul medio
+    backgroundColor: '#475569',
     padding: 16,
     borderRadius: 12,
     borderColor: '#64748b',
@@ -257,23 +260,23 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#e0e7ff', // azul muy claro para texto destacado
+    color: '#e0e7ff',
     marginBottom: 12,
   },
   label: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#cbd5e1', // gris claro para etiquetas
+    color: '#cbd5e1',
     marginBottom: 6,
   },
   input: {
-    backgroundColor: '#64748b', // gris azulado para inputs
+    backgroundColor: '#64748b',
     padding: Platform.OS === 'ios' ? 14 : 12,
     borderRadius: 10,
     marginBottom: 16,
     borderWidth: 1,
     borderColor: '#94a3b8',
-    color: '#f1f5f9', // texto claro
+    color: '#f1f5f9',
   },
   textArea: {
     height: 100,
@@ -281,7 +284,7 @@ const styles = StyleSheet.create({
   },
   pickerWrapper: {
     borderRadius: 10,
-    backgroundColor: '#64748b', // gris azulado para picker
+    backgroundColor: '#64748b',
     borderWidth: 1,
     borderColor: '#94a3b8',
     marginBottom: 16,
@@ -291,14 +294,14 @@ const styles = StyleSheet.create({
     height: 48,
   },
   picker: {
-    color: '#f1f5f9',
+    color: '#1e293b', // Texto oscuro para mejor visibilidad en menú
     width: '100%',
     height: Platform.OS === 'ios' ? 48 : 50,
     backgroundColor: 'transparent',
     fontSize: 16,
   },
   button: {
-    backgroundColor: '#2563eb', // azul vivo para botón
+    backgroundColor: '#2563eb',
     paddingVertical: 14,
     borderRadius: 12,
     alignItems: 'center',

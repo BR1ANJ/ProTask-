@@ -2,10 +2,11 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import LandingPage from './src/screens/ladingPage';  // Importa la LandingPage real
+import LandingPage from './src/screens/ladingPage';
 import HomeScreen from './src/screens/HomeScreen';
 import DetailsScreen from './src/screens/DetailsScreen';
-import Formulario from './components/formulario';    // Importa el formulario
+import Formulario from './components/formulario';
+import PerfilCards from './src/screens/Inicio';  // Asegúrate que el componente PerfilCards esté exportado por defecto en Inicio.tsx
 
 type RootStackParamList = {
   Landing: undefined;
@@ -22,12 +23,12 @@ export default function App() {
       <Stack.Navigator initialRouteName="Landing">
         <Stack.Screen
           name="Landing"
-          component={LandingPage}   // Ahora sí la LandingPage real
+          component={LandingPage}
           options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Inicio"
-          component={HomeScreen}
+          component={PerfilCards} // ✅ Aquí está corregido
           options={{ title: 'Inicio' }}
         />
         <Stack.Screen
