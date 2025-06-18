@@ -54,9 +54,10 @@ aplicaciones móviles y  optimizar sus registros
     - Base de datos MongoDB para almacenamiento
     - Implementación de microservicios para:
       - Gestión de usuarios y autenticación
-      - Procesamiento de datos de alimentación
+      - Procesamiento de datos de tareas visuales 
       - Sistema de notificaciones
-      - Análisis de patrones y generación de reportes
+      -  Generación de reportes
+      - Agregacion de graficas 
 
   - Aplicación Móvil
     - Desarrollo en Flutter para compatibilidad multiplataforma
@@ -68,17 +69,9 @@ aplicaciones móviles y  optimizar sus registros
       - Visualización de históricos y estadísticas
       - Gestión de perfiles de mascotas
 
-  - Aplicación Web
-    - Desarrollo con React.js
-    - Panel de administración completo
-    - Visualización avanzada de datos
-    - Generación de reportes detallados
-
+  
   - Sistema de Análisis y Control
-    - Algoritmos para cálculo de porciones basados en peso
-    - Sistema de machine learning para detección de patrones
-    - Análisis predictivo para anticipar necesidades de mantenimiento
-    - Sistema de alertas inteligentes
+
 
   - Seguridad
     - Implementación de JWT para autenticación
@@ -195,14 +188,14 @@ aplicaciones móviles y  optimizar sus registros
 
 ## Identidad Gráfica
 
-#### Logo del proyecto [MeowMetrics]
-![MeowMetrics](/ApiMobile/Frontend/Assets/Logo-01.png)
+#### Logo del proyecto [ProTask]
+![MeowMetrics](https://i.pinimg.com/736x/06/01/c8/0601c8c361d79ebc7b582694a9750fe6.jpg)
 
 #### Logo de la empresa [Smart Pet Solutions]
-![Smart Pet Solutions](/ApiMobile/Frontend/Assets/logo_empresa.png)
+![Smart Pet Solutions](https://i.pinimg.com/736x/b5/e9/78/b5e9785731b3b1e7afe6aff9ebcb031e.jpg)
 
 ###### Paleta de Colores del Proyecto:
-![Paleta de Colores](/ApiWeb/Frontend/Assets/PaletaLogoMeoMetrics.png)
+![Paleta de Colores](https://i.pinimg.com/736x/94/6f/0c/946f0c35da07cc67506423b68a148b25.jpg)
  
 
 ---
@@ -211,7 +204,6 @@ aplicaciones móviles y  optimizar sus registros
 
 ##### Cliente:
 
-![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
 ![ReactNative](https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 
 ##### Base de Datos:
@@ -222,7 +214,6 @@ aplicaciones móviles y  optimizar sus registros
 
 ##### IDE:
 ![VisualStudioCode](https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)
-![Arduino](https://img.shields.io/badge/Arduino_IDE-00979D?style=for-the-badge&logo=arduino&logoColor=white)
 
 ##### OS:
 ![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
@@ -236,15 +227,6 @@ aplicaciones móviles y  optimizar sus registros
 ---
 
 ### Autores:
-
-***Zacatenco Pedroza Zyanya Ahuachtli***
-[@ZyanZac](https://github.com/ZyanZac)
-
-***Galindo Gonzalez Lorena Citlalli***
-[@Lore-Galindo](https://github.com/Lore-Galindo)
-
-***Balderas Gómez Dulce***
-[@DulceBal](https://github.com/DulceBal)
 
 ***Mendoza Márquez Brian Jesús***
 [@BR1ANJ3Sus3B](https://github.com/BR1ANJ3Sus3B)
