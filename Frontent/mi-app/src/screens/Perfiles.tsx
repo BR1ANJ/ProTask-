@@ -7,86 +7,130 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
+  Keyboard,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 type Perfil = {
   nombre: string;
   descripcion: string;
   imagen: string;
-  clave: string; // ← palabra secreta
+  clave: string;
 };
+
+type RootStackParamList = {
+  IngMartin: undefined;
+  IngManuel: undefined;
+  IngDaniel: undefined;
+};
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const perfiles: Perfil[] = [
   {
     nombre: 'Ing.Martin',
-    descripcion: 'Jefe de Tecnologias de la infomacion ',
+    descripcion: 'Jefe de Tecnologías de la Información',
     imagen: 'https://i.pinimg.com/736x/6e/59/95/6e599501252c23bcf02658617b29c894.jpg',
     clave: 'taco',
   },
   {
     nombre: 'Ing.Manuel',
-    descripcion: '',
+    descripcion: 'Encargado de redes y cableado estructurado',
     imagen: 'https://i.pinimg.com/736x/6e/59/95/6e599501252c23bcf02658617b29c894.jpg',
     clave: 'molotes',
   },
   {
     nombre: 'Ing.Daniel',
-    descripcion: '',
+    descripcion: 'Especialista en soporte técnico y mantenimiento',
     imagen: 'https://i.pinimg.com/736x/6e/59/95/6e599501252c23bcf02658617b29c894.jpg',
     clave: 'torta',
   },
 ];
 
-export default function PerfilCards() {
+export default function Perfiles() {
+  const navigation = useNavigation<NavigationProp>();
   const [mostrarInput, setMostrarInput] = useState<number | null>(null);
-  const [palabraSecreta, setPalabraSecreta] = useState<string>('');
-  const [mensaje, setMensaje] = useState<string>('');
+  const [palabras, setPalabras] = useState<string[]>(Array(perfiles.length).fill(''));
+  const [mensajes, setMensajes] = useState<string[]>(Array(perfiles.length).fill(''));
 
   const validarPalabra = (index: number) => {
-    if (palabraSecreta.toLowerCase() === perfiles[index].clave) {
-      setMensaje('✅ Bienvenido, acceso concedido');
+    const perfil = perfiles[index];
+    Keyboard.dismiss();
+    if (palabras[index].toLowerCase() === perfil.clave) {
+      navegar(perfil.nombre);
+      setMensajes((prev) => {
+        const arr = [...prev];
+        arr[index] = '✅ Bienvenido, acceso concedido';
+        return arr;
+      });
     } else {
-      setMensaje('❌ Palabra secreta incorrecta');
+      setMensajes((prev) => {
+        const arr = [...prev];
+        arr[index] = '❌ Palabra secreta incorrecta';
+        return arr;
+      });
+    }
+  };
+
+  const navegar = (nombre: string) => {
+    switch (nombre) {
+      case 'Ing.Martin':
+        navigation.navigate('IngMartin');
+        break;
+      case 'Ing.Manuel':
+        navigation.navigate('IngManuel');
+        break;
+      case 'Ing.Daniel':
+        navigation.navigate('IngDaniel');
+        break;
     }
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Perfiles del Equipo</Text>
-      {perfiles.map((perfil, index) => (
-        <View key={index} style={styles.card}>
-          <Image source={{ uri: perfil.imagen }} style={styles.image} />
+      {perfiles.map((perfil, i) => (
+        <View key={i} style={styles.card}>
+          <Image
+            source={{ uri: perfil.imagen }}
+            style={styles.image}
+            accessibilityLabel={`${perfil.nombre} imagen`}
+          />
           <Text style={styles.name}>{perfil.nombre}</Text>
           <Text style={styles.description}>{perfil.descripcion}</Text>
 
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-              setMostrarInput(mostrarInput === index ? null : index);
-              setMensaje('');
-              setPalabraSecreta('');
+              setMostrarInput(mostrarInput === i ? null : i);
+              setMensajes((prev) => prev.map((_, j) => (j === i ? '' : prev[j])));
+              setPalabras((prev) => prev.map((_, j) => (j === i ? '' : prev[j])));
             }}
           >
             <Text style={styles.buttonText}>Iniciar</Text>
           </TouchableOpacity>
 
-          {mostrarInput === index && (
+          {mostrarInput === i && (
             <>
               <TextInput
                 placeholder="Introduce tu palabra secreta"
                 placeholderTextColor="#999"
                 style={styles.input}
                 secureTextEntry
-                value={palabraSecreta}
-                onChangeText={setPalabraSecreta}
+                value={palabras[i]}
+                onChangeText={(text) =>
+                  setPalabras((prev) => {
+                    const arr = [...prev];
+                    arr[i] = text;
+                    return arr;
+                  })
+                }
               />
-              <TouchableOpacity
-                style={[styles.button, { marginTop: 10 }]}
-                onPress={() => validarPalabra(index)}
-              >
+              <TouchableOpacity style={[styles.button, { marginTop: 10 }]} onPress={() => validarPalabra(i)}>
                 <Text style={styles.buttonText}>Validar</Text>
               </TouchableOpacity>
-              {mensaje !== '' && <Text style={styles.mensaje}>{mensaje}</Text>}
+              {mensajes[i] !== '' && <Text style={styles.mensaje}>{mensajes[i]}</Text>}
             </>
           )}
         </View>
@@ -104,9 +148,9 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 26,
     color: '#fff',
-    fontFamily: 'Poppins_700Bold',
     marginBottom: 20,
     textAlign: 'center',
+    fontWeight: 'bold',
   },
   card: {
     width: '90%',
@@ -129,13 +173,12 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 18,
     color: '#3b82f6',
-    fontFamily: 'Poppins_700Bold',
+    fontWeight: 'bold',
     marginBottom: 6,
   },
   description: {
     fontSize: 14,
     color: '#ccc',
-    fontFamily: 'Poppins_400Regular',
     textAlign: 'center',
     marginBottom: 12,
   },
@@ -148,8 +191,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#fff',
-    fontFamily: 'Poppins_700Bold',
     fontSize: 16,
+    fontWeight: 'bold',
   },
   input: {
     backgroundColor: '#444',
@@ -157,12 +200,10 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 10,
     borderRadius: 8,
-    fontFamily: 'Poppins_400Regular',
   },
   mensaje: {
     marginTop: 10,
     fontSize: 14,
     color: '#fff',
-    fontFamily: 'Poppins_400Regular',
   },
 });

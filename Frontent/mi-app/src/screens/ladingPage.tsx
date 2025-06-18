@@ -9,7 +9,7 @@ import {
   SafeAreaView,
   ActivityIndicator,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 import { Feather as FeatherIcon } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -18,6 +18,8 @@ import {
   Poppins_400Regular,
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins';
+
+import { RootStackParamList } from '../../App'; // Ajusta la ruta según dónde esté tu App.tsx
 
 type FeatherIconName = React.ComponentProps<typeof FeatherIcon>['name'];
 
@@ -29,7 +31,9 @@ const FeatureItem: React.FC<{ icon: FeatherIconName; text: string }> = ({ icon, 
 );
 
 const LandingPage: React.FC = () => {
-  const navigation = useNavigation();
+  // Aquí el tipado para navegación con tu RootStackParamList
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
   const scrollRef = useRef<ScrollView>(null);
   const [contactY, setContactY] = useState(0);
   const [menuVisible, setMenuVisible] = useState(false);
@@ -109,7 +113,7 @@ const LandingPage: React.FC = () => {
 
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.navigate('Register')}
+            onPress={() => navigation.navigate('Formulario')}
             accessibilityLabel="Comienza ahora con ProTask"
           >
             <Text style={styles.buttonText}>Comienza Ahora</Text>
@@ -186,7 +190,7 @@ const LandingPage: React.FC = () => {
       <TouchableOpacity
         style={styles.menuButton}
         onPress={() => setMenuVisible(!menuVisible)}
-        accessibilityLabel={menuVisible ? "Cerrar menú" : "Abrir menú"}
+        accessibilityLabel={menuVisible ? 'Cerrar menú' : 'Abrir menú'}
       >
         <FeatherIcon name="menu" size={24} color="#fff" />
       </TouchableOpacity>
@@ -200,7 +204,13 @@ const LandingPage: React.FC = () => {
             accessible={false}
           />
           <Animatable.View animation="fadeInRight" duration={300} style={styles.menu}>
-            <TouchableOpacity style={styles.menuItem} onPress={() => alert('Perfil')}>
+            <TouchableOpacity
+              style={styles.menuItem}
+              onPress={() => {
+                setMenuVisible(false);
+                navigation.navigate('Perfiles');
+              }}
+            >
               <Text style={styles.menuText}>Perfiles</Text>
             </TouchableOpacity>
 
@@ -218,7 +228,7 @@ const LandingPage: React.FC = () => {
               style={styles.menuItem}
               onPress={() => {
                 setMenuVisible(false);
-                navigation.navigate('Inicio');
+                navigation.navigate('Perfiles');
               }}
             >
               <Text style={styles.menuText}>Iniciar</Text>
@@ -326,14 +336,13 @@ const styles = StyleSheet.create({
   floatingButton: {
     position: 'absolute',
     bottom: 30,
-    right: 20,
+    right: 30,
     backgroundColor: '#3b82f6',
-    borderRadius: 25,
-    width: 50,
-    height: 50,
+    width: 48,
+    height: 48,
+    borderRadius: 24,
     justifyContent: 'center',
     alignItems: 'center',
-    elevation: 6,
   },
   menuButton: {
     position: 'absolute',
@@ -342,34 +351,37 @@ const styles = StyleSheet.create({
     backgroundColor: '#3b82f6',
     padding: 10,
     borderRadius: 30,
-    elevation: 6,
+    zIndex: 20,
   },
   menuOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0,0,0,0.3)',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0.5)',
   },
   menu: {
     position: 'absolute',
     top: 70,
-    right: 20,
+    right: 10,
     backgroundColor: '#2c2f33',
+    borderRadius: 8,
     paddingVertical: 10,
     width: 180,
-    borderRadius: 8,
-    elevation: 7,
+    zIndex: 30,
   },
   menuItem: {
     paddingVertical: 12,
-    paddingHorizontal: 15,
+    paddingHorizontal: 20,
   },
   menuText: {
     color: '#fff',
+    fontFamily: 'Poppins_700Bold',
     fontSize: 16,
-    fontFamily: 'Poppins_400Regular',
   },
   gradient: {
-    borderRadius: 10,
     padding: 20,
-    marginBottom: 15,
+    borderRadius: 8,
   },
 });
